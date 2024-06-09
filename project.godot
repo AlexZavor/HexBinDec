@@ -1,0 +1,39 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="HexBinDec"
+run/main_scene="res://app.tscn"
+config/features=PackedStringArray("4.2", "GL Compatibility")
+boot_splash/bg_color=Color(0.0562916, 0.0562916, 0.0562916, 1)
+boot_splash/show_image=false
+boot_splash/fullsize=false
+boot_splash/use_filter=false
+config/icon="res://Icon.png"
+
+[display]
+
+window/size/viewport_width=400
+window/size/viewport_height=500
+window/size/resizable=false
+window/stretch/aspect="expand"
+window/handheld/orientation=1
+
+[global]
+
+pass_number=0
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.0049, 0.01575, 0.07, 1)

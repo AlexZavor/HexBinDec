@@ -1,0 +1,140 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh3q6fqsekdbk"]
+
+[ext_resource type="Theme" uid="uid://d32bll0a144cj" path="res://app.theme" id="1_8adg8"]
+[ext_resource type="Script" path="res://app.gd" id="1_wtixy"]
+
+[node name="App" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wtixy")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 471.0
+theme = ExtResource("1_8adg8")
+
+[node name="Decimal Margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Decimal Margin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Decimal Margin/HBoxContainer"]
+layout_mode = 2
+text = "DEC "
+
+[node name="Decimal" type="LineEdit" parent="VBoxContainer/Decimal Margin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Decimal Number"
+alignment = 1
+virtual_keyboard_type = 2
+
+[node name="Binary Margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Binary Margin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Binary Margin/HBoxContainer"]
+layout_mode = 2
+text = "BIN "
+
+[node name="Binary" type="LineEdit" parent="VBoxContainer/Binary Margin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Binary Number"
+alignment = 1
+virtual_keyboard_type = 2
+
+[node name="Hex Margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Hex Margin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Hex Margin/HBoxContainer"]
+layout_mode = 2
+text = "HEX "
+
+[node name="Hex" type="LineEdit" parent="VBoxContainer/Hex Margin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Hex Number"
+alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Opp Margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Operations" type="HBoxContainer" parent="VBoxContainer/Opp Margin"]
+layout_mode = 2
+alignment = 1
+
+[node name="sub" type="Button" parent="VBoxContainer/Opp Margin/Operations"]
+layout_mode = 2
+text = "--"
+
+[node name="Lshift" type="Button" parent="VBoxContainer/Opp Margin/Operations"]
+layout_mode = 2
+text = "<<"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Opp Margin/Operations"]
+layout_mode = 2
+
+[node name="Rshift" type="Button" parent="VBoxContainer/Opp Margin/Operations"]
+layout_mode = 2
+text = ">>"
+
+[node name="add" type="Button" parent="VBoxContainer/Opp Margin/Operations"]
+layout_mode = 2
+text = "++"
+
+[node name="Twos Margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Twos Margin"]
+layout_mode = 2
+
+[node name="Two Button" type="CheckButton" parent="VBoxContainer/Twos Margin/CenterContainer"]
+layout_mode = 2
+text = "Two's Comp."
+alignment = 1
+
+[node name="Buttons Margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Buttons Margin"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Buttons Margin/CenterContainer"]
+layout_mode = 2
+
+[node name="Clear" type="Button" parent="VBoxContainer/Buttons Margin/CenterContainer/HBoxContainer"]
+layout_mode = 2
+text = "clear"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Buttons Margin/CenterContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Math" type="Button" parent="VBoxContainer/Buttons Margin/CenterContainer/HBoxContainer"]
+layout_mode = 2
+text = "Calc."
+
+[connection signal="text_changed" from="VBoxContainer/Decimal Margin/HBoxContainer/Decimal" to="." method="_on_decimal_text_changed"]
+[connection signal="text_changed" from="VBoxContainer/Binary Margin/HBoxContainer/Binary" to="." method="_on_binary_text_changed"]
+[connection signal="text_changed" from="VBoxContainer/Hex Margin/HBoxContainer/Hex" to="." method="_on_hex_text_changed"]
+[connection signal="pressed" from="VBoxContainer/Opp Margin/Operations/sub" to="." method="_on_sub_pressed"]
+[connection signal="pressed" from="VBoxContainer/Opp Margin/Operations/Lshift" to="." method="_on_lshift_pressed"]
+[connection signal="pressed" from="VBoxContainer/Opp Margin/Operations/Rshift" to="." method="_on_rshift_pressed"]
+[connection signal="pressed" from="VBoxContainer/Opp Margin/Operations/add" to="." method="_on_add_pressed"]
+[connection signal="toggled" from="VBoxContainer/Twos Margin/CenterContainer/Two Button" to="." method="_on_two_button_toggled"]
+[connection signal="pressed" from="VBoxContainer/Buttons Margin/CenterContainer/HBoxContainer/Clear" to="." method="_on_clear_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons Margin/CenterContainer/HBoxContainer/Math" to="." method="_on_math_pressed"]

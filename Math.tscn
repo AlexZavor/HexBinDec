@@ -1,0 +1,158 @@
+[gd_scene load_steps=3 format=3 uid="uid://cr4u65mrgpdka"]
+
+[ext_resource type="Theme" uid="uid://d32bll0a144cj" path="res://app.theme" id="1_qhkol"]
+[ext_resource type="Script" path="res://Math.gd" id="2_roexu"]
+
+[node name="Math" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_qhkol")
+script = ExtResource("2_roexu")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 400.0
+offset_bottom = 471.0
+theme = ExtResource("1_qhkol")
+
+[node name="Op1 Margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Op1 Margin"]
+layout_mode = 2
+
+[node name="Op1Sel" type="OptionButton" parent="VBoxContainer/Op1 Margin/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+item_count = 3
+selected = 0
+popup/item_0/text = "Dec"
+popup/item_0/id = 0
+popup/item_1/text = "Bin"
+popup/item_1/id = 1
+popup/item_2/text = "Hex"
+popup/item_2/id = 2
+
+[node name="Op1" type="LineEdit" parent="VBoxContainer/Op1 Margin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Op.1"
+alignment = 1
+virtual_keyboard_type = 2
+
+[node name="Operation" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Operation"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+alignment = 1
+
+[node name="OperationSel" type="OptionButton" parent="VBoxContainer/Operation/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+item_count = 2
+selected = 0
+popup/item_0/text = "+"
+popup/item_0/id = 0
+popup/item_1/text = "-"
+popup/item_1/id = 1
+
+[node name="Swap" type="Button" parent="VBoxContainer/Operation/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "↑↓"
+icon_alignment = 1
+
+[node name="Op2 Margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Op2 Margin"]
+layout_mode = 2
+
+[node name="Op2Sel" type="OptionButton" parent="VBoxContainer/Op2 Margin/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+item_count = 3
+selected = 0
+popup/item_0/text = "Dec"
+popup/item_0/id = 0
+popup/item_1/text = "Bin"
+popup/item_1/id = 1
+popup/item_2/text = "Hex"
+popup/item_2/id = 2
+
+[node name="Op2" type="LineEdit" parent="VBoxContainer/Op2 Margin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "0"
+placeholder_text = "Op.2"
+alignment = 1
+virtual_keyboard_type = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 54
+text = "="
+horizontal_alignment = 1
+
+[node name="Ans Margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Ans Margin"]
+layout_mode = 2
+
+[node name="AnsSel" type="OptionButton" parent="VBoxContainer/Ans Margin/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+item_count = 3
+selected = 0
+popup/item_0/text = "Dec"
+popup/item_0/id = 0
+popup/item_1/text = "Bin"
+popup/item_1/id = 1
+popup/item_2/text = "Hex"
+popup/item_2/id = 2
+
+[node name="Ans" type="LineEdit" parent="VBoxContainer/Ans Margin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Answer"
+alignment = 1
+editable = false
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Buttons Margin" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Buttons Margin"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Buttons Margin/CenterContainer"]
+layout_mode = 2
+
+[node name="Load" type="Button" parent="VBoxContainer/Buttons Margin/CenterContainer/HBoxContainer"]
+layout_mode = 2
+text = "ans→op"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/Buttons Margin/CenterContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Return" type="Button" parent="VBoxContainer/Buttons Margin/CenterContainer/HBoxContainer"]
+layout_mode = 2
+text = "return"
+
+[connection signal="item_selected" from="VBoxContainer/Op1 Margin/HBoxContainer/Op1Sel" to="." method="_on_op_1_sel_item_selected"]
+[connection signal="text_changed" from="VBoxContainer/Op1 Margin/HBoxContainer/Op1" to="." method="_on_op_1_text_changed"]
+[connection signal="item_selected" from="VBoxContainer/Operation/HBoxContainer/OperationSel" to="." method="_on_operation_sel_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/Op2 Margin/HBoxContainer/Op2Sel" to="." method="_on_op_2_sel_item_selected"]
+[connection signal="text_changed" from="VBoxContainer/Op2 Margin/HBoxContainer/Op2" to="." method="_on_op_2_text_changed"]
+[connection signal="item_selected" from="VBoxContainer/Ans Margin/HBoxContainer/AnsSel" to="." method="_on_ans_sel_item_selected"]
+[connection signal="pressed" from="VBoxContainer/Buttons Margin/CenterContainer/HBoxContainer/Load" to="." method="_on_load_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons Margin/CenterContainer/HBoxContainer/Return" to="." method="_on_return_pressed"]
