@@ -18,3 +18,4 @@ mono_crash.*.json
 Android/*
 Linux/*
 Windows/*
+Release/*

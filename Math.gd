@@ -13,7 +13,7 @@ var op2 = 0
 var ans = 0
 
 func _ready():
-	if(OS.has_feature("android")):
+	if(OS.has_feature("mobile")):
 		scale = Vector2(1.8, 1.8)
 		size = Vector2(400, 471)
 		position = Vector2(0, 400)
