@@ -55,12 +55,18 @@ alignment = 1
 [node name="OperationSel" type="OptionButton" parent="VBoxContainer/Operation/HBoxContainer"]
 layout_mode = 2
 alignment = 1
-item_count = 2
+item_count = 5
 selected = 0
 popup/item_0/text = "+"
 popup/item_0/id = 0
 popup/item_1/text = "-"
 popup/item_1/id = 1
+popup/item_2/text = "×"
+popup/item_2/id = 2
+popup/item_3/text = "÷"
+popup/item_3/id = 3
+popup/item_4/text = "%"
+popup/item_4/id = 4
 
 [node name="Swap" type="Button" parent="VBoxContainer/Operation/HBoxContainer"]
 visible = false
