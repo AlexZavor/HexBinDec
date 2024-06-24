@@ -4,6 +4,9 @@ extends Control
 @onready var binText = get_node("VBoxContainer/Binary Margin/HBoxContainer/Binary")
 @onready var hexText = get_node("VBoxContainer/Hex Margin/HBoxContainer/Hex")
 @onready var twoButt = get_node("VBoxContainer/Twos Margin/CenterContainer/Two Button")
+@onready var ascii = get_node("VBoxContainer/Twos Margin/CenterContainer/MarginContainer/Label")
+var menuButt
+var menu
 
 var twosComp = false
 
@@ -15,6 +18,26 @@ func _ready():
 	if(ProjectSettings.get_setting("global/pass_number") != 0):
 		decText.text = str(ProjectSettings.get_setting("global/pass_number"))
 		_on_decimal_text_changed(str(ProjectSettings.get_setting("global/pass_number")))
+
+
+func _on_menu_bar_ready():
+	menuButt = get_node("MenuBar")
+	menu = menuButt.get_popup()
+	menu.connect("index_pressed", Callable(self, "_on_menu_bar_select"))
+
+func _on_menu_bar_select(index):
+	match index:
+		0:		# hex prefix
+			var pre = ProjectSettings.get_setting("global/include_hex_prefix")
+			pre = !pre
+			menu.set_item_checked(0,pre)
+			ProjectSettings.set_setting("global/include_hex_prefix",pre)
+		1:		# Ascii table
+			var is_set = menu.is_item_checked(1)
+			menu.set_item_checked(1,!is_set)
+			ascii.get_parent().visible = !is_set
+	# Recalculate
+	_on_decimal_text_changed(decText.text)
 
 # Helper functions
 
@@ -161,8 +184,16 @@ func eval_hex(dec):
 		for c in string:
 			string2 += invert_hex(c)
 		string = string2
-	#string = "0x"+string
+	
+	if(ProjectSettings.get_setting("global/include_hex_prefix")):
+		string = "0x"+string
 	return string
+
+func setAscii(number):
+	if(char(number).is_empty()):
+		ascii.text = "Ascii\n⊠"
+	else:
+		ascii.text = "Ascii\n" + char(number)
 
 # text inputs
 
@@ -171,12 +202,14 @@ func _on_decimal_text_changed(new_text):
 		reset_overrides()
 		binText.text = eval_bin(new_text.to_int())
 		hexText.text = eval_hex(new_text.to_int())
+		setAscii(new_text.to_int())
 		if (new_text.to_int() < 0):
 			twoButt.button_pressed = true
 	else:
 		decText.add_theme_color_override("font_color", Color(1,0,0,1))
 		binText.text = ""
 		hexText.text = ""
+		setAscii(0)
 
 
 func _on_binary_text_changed(new_text):
@@ -190,10 +223,12 @@ func _on_binary_text_changed(new_text):
 		else:
 			decText.text = str(new_text.bin_to_int())
 		hexText.text = eval_hex(new_text.bin_to_int())
+		setAscii(new_text.bin_to_int())
 	else:
 		binText.add_theme_color_override("font_color", Color(1,0,0,1))
 		decText.text = ""
 		hexText.text = ""
+		setAscii(0)
 
 
 func _on_hex_text_changed(new_text):
@@ -202,6 +237,7 @@ func _on_hex_text_changed(new_text):
 	if new_text.is_valid_hex_number():
 		reset_overrides()
 		binText.text = eval_bin(new_text.hex_to_int())
+		setAscii(new_text.hex_to_int())
 		if(twosComp):
 			decText.text = str(eval_twos_bin(binText.text.replace(" ", "")))
 		else:
@@ -210,6 +246,7 @@ func _on_hex_text_changed(new_text):
 		hexText.add_theme_color_override("font_color", Color(1,0,0,1))
 		decText.text = ""
 		binText.text = ""
+		setAscii(0)
 
 # Buttons
 
@@ -225,6 +262,7 @@ func _on_two_button_toggled(toggled_on):
 	else:
 		decText.text = str(binText.text.replace(" ", "").bin_to_int())
 		hexText.text = eval_hex(binText.text.replace(" ", "").bin_to_int())
+
 
 # Operations
 
@@ -258,5 +296,8 @@ func _on_math_pressed():
 	else:
 		ProjectSettings.set_setting("global/pass_number", 0)
 	get_tree().change_scene_to_file("res://Math.tscn")
+
+
+
 
 

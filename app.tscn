@@ -1,7 +1,33 @@
-[gd_scene load_steps=3 format=3 uid="uid://dh3q6fqsekdbk"]
+[gd_scene load_steps=6 format=3 uid="uid://dh3q6fqsekdbk"]
 
 [ext_resource type="Theme" uid="uid://d32bll0a144cj" path="res://app.theme" id="1_8adg8"]
 [ext_resource type="Script" path="res://app.gd" id="1_wtixy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qrmmv"]
+bg_color = Color(0, 0, 0.0862745, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.212305, 0.212305, 0.212305, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+shadow_size = 4
+shadow_offset = Vector2(4, 4)
+
+[sub_resource type="SystemFont" id="SystemFont_n6vti"]
+font_names = PackedStringArray("Arial")
+
+[sub_resource type="Theme" id="Theme_pdjjs"]
+default_font = SubResource("SystemFont_n6vti")
+default_font_size = 24
+Label/styles/normal = SubResource("StyleBoxFlat_qrmmv")
 
 [node name="App" type="Control"]
 layout_mode = 3
@@ -100,13 +126,30 @@ text = "++"
 [node name="Twos Margin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/Twos Margin"]
+[node name="CenterContainer" type="HBoxContainer" parent="VBoxContainer/Twos Margin"]
 layout_mode = 2
+alignment = 1
 
 [node name="Two Button" type="CheckButton" parent="VBoxContainer/Twos Margin/CenterContainer"]
 layout_mode = 2
 text = "Two's Comp."
 alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/Twos Margin/CenterContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 27
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/Twos Margin/CenterContainer/MarginContainer"]
+custom_minimum_size = Vector2(65, 75)
+layout_mode = 2
+theme = SubResource("Theme_pdjjs")
+text = "Ascii
+⊠"
+horizontal_alignment = 1
 
 [node name="Buttons Margin" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -128,6 +171,24 @@ layout_mode = 2
 layout_mode = 2
 text = "Calc."
 
+[node name="MenuBar" type="MenuButton" parent="."]
+layout_direction = 3
+layout_mode = 1
+offset_right = 30.0
+offset_bottom = 38.0
+auto_translate = false
+theme = ExtResource("1_8adg8")
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 22
+text = "⋮"
+item_count = 2
+popup/item_0/text = "Include \"0x\""
+popup/item_0/checkable = 1
+popup/item_0/id = 0
+popup/item_1/text = "Ascii"
+popup/item_1/checkable = 1
+popup/item_1/id = 1
+
 [connection signal="text_changed" from="VBoxContainer/Decimal Margin/HBoxContainer/Decimal" to="." method="_on_decimal_text_changed"]
 [connection signal="text_changed" from="VBoxContainer/Binary Margin/HBoxContainer/Binary" to="." method="_on_binary_text_changed"]
 [connection signal="text_changed" from="VBoxContainer/Hex Margin/HBoxContainer/Hex" to="." method="_on_hex_text_changed"]
@@ -138,3 +199,4 @@ text = "Calc."
 [connection signal="toggled" from="VBoxContainer/Twos Margin/CenterContainer/Two Button" to="." method="_on_two_button_toggled"]
 [connection signal="pressed" from="VBoxContainer/Buttons Margin/CenterContainer/HBoxContainer/Clear" to="." method="_on_clear_pressed"]
 [connection signal="pressed" from="VBoxContainer/Buttons Margin/CenterContainer/HBoxContainer/Math" to="." method="_on_math_pressed"]
+[connection signal="ready" from="MenuBar" to="." method="_on_menu_bar_ready"]

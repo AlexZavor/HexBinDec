@@ -30,6 +30,7 @@ window/handheld/orientation=1
 [global]
 
 pass_number=0
+include_hex_prefix=false
 
 [rendering]
 
